@@ -29,14 +29,15 @@ const Header = () => {
   
     return (
         <>
-            <Navbar bg="primary" variant="dark">
+            <Navbar bg="dark" variant="dark">
                 <Container >
                     <Navbar.Brand href="/">FunDAO</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/about">About</Nav.Link>
+                            <Nav.Link href="/explore">Explore</Nav.Link>
+                            <Nav.Link href="/about">My Page</Nav.Link>
+                            <Nav.Link href="/createProject">Create a Project</Nav.Link>
                         </Nav>
                         {
                             account === "" 
