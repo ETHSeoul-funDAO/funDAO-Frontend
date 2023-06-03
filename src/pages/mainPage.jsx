@@ -5,8 +5,10 @@ import banner from "../assets/banner.png";
 import banner1 from "../assets/banner1.png";
 import banner2 from "../assets/banner2.png";
 import banner3 from "../assets/banner3.png";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () =>{
+    const navigate = useNavigate();
 
     const circleStyle = "d-inline-flex border border-white-50 text-white-50 rounded-pill ps-2 pe-2 ms-1 me-2";
     const circleInCard = "d-inline-flex border border-white-50 bg-dark text-white rounded-pill ps-2 pe-2 ms-1 me-2";
@@ -101,7 +103,7 @@ const MainPage = () =>{
                     {desc}
                 </div>
             </div>
-                <button type="button" class="btn btn-primary mt-4 px-4 py-3" style={{'background-color': '#3771e6'}}>Create a project</button>
+                <button type="button" class="btn btn-primary mt-4 px-4 py-3" onClick={() => navigate("/createProject")} style={{'background-color': '#3771e6'}}>Create a project</button>
             </div>
             <div class="row justify-content-md-center mt-5">
                 {renderProjectCards()}
