@@ -51,22 +51,25 @@ export default function CreateProjectPage() {
       alert("need to sign in");
       
     }
-    const provider = new ethers.getDefaultProvider('https://rpc.chiadochain.net');
+    console.log("asdf");
+
+    // const provider = new ethers.getDefaultProvider('https://rpc.chiadochain.net');
     // const provider = new ethers.getDefaultProvider('https://aurora-testnet.rpc.thirdweb.com');
     // const signer = new ethers.JsonRpcSigner();
-    
-    // const signer = await provider.
-    // console.log(signer);
-    const VaultFactory_Contract = await new ethers.Contract("0x7680cd3f1b9b74dfdc4fb4b973290c7a26a0fbb3", ValutFactory_ABI, provider)
+    // const provider = new ethers.JsonRpcProvider('https://rpc.chiado.gnosis.gateway.fm');
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+
+    console.log(signer);
+    const VaultFactory_Contract = await new ethers.Contract("0x7680cd3f1b9b74dfdc4fb4b973290c7a26a0fbb3", ValutFactory_ABI, signer)
     const a = await VaultFactory_Contract.raiseFund(
-      accounts,
+      accounts[0],
       pName,
       tokenSymbol,
       BASETOKEN.gnosis_USDC,
       BASETOKEN.gnosis_USDC,
       endTimestamp + 31536000
     );
-    console.log(a);
   //   function raiseFund(
   //     address _owner,
   //     string memory _tokenName, 
