@@ -27,6 +27,7 @@ export default function Router() {
         <Route path='/explore' element={<ExplorePage />} />
         <Route path='/createProject' element={<CreateProjectPage />} />
         <Route path='/detail/:id' element={<Detailpage />} />
+        <Route path='/detail' element={<Detailpage />} />
       </Routes>
     </BrowserRouter>
   );

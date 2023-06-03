@@ -1,20 +1,3 @@
-// Aurora
-export const AURORA_PARAM = [{
-    "chainId": "0x4e454152", // 1313161554 in decimal
-     // testnet alternative: "chainId": "0x4e454153", // 1313161555 in decimal	
-    "chainName": "Aurora",
-    "rpcUrls": [
-        "https://mainnet.aurora.dev" // testnet alternative: "https://testnet.aurora.dev"
-    ],
-    "nativeCurrency": {
-        "name": "Ether",
-        "symbol": "ETH",
-        "decimals": 18
-    },
-    "blockExplorerUrls": [
-        // not yet available
-    ]
-}];
 
 export const CHAINIDS_DEC = {
     polygon: 137,
@@ -41,4 +24,9 @@ export const PARAMS = {
         nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
         rpcUrls: ['https://aurora-testnet.rpc.thirdweb.com']
     }]
+}
+
+export const BASETOKEN = {
+    gnosis_USDT: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
+    gnosis_USDC: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
 }
