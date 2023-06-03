@@ -1,28 +1,34 @@
 import React from "react";
-import Header from "../components/header/header";
 import { useState, useEffect, useCallback } from "react";
-import Footer from "../components/footer/footer";
+import { LangEn, ethers } from "ethers";
 import Modal from 'react-modal';
+
+import { BASETOKEN, CHAINIDS_DEC, PARAMS, CONTRACT_ADDRESS} from "../constants/constants";
 import ValutFactory_ABI from '../abis/vaultFactory_abi.json';
 
-import { ethers } from "ethers";
-import { BASETOKEN } from "../constants/constants";
+import Header from "../components/header/header";
+import Footer from "../components/footer/footer";
+import Loading from "../components/spinner/loading";
 
 export default function CreateProjectPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const [pName, setPName] = useState("");
   const [pDesc, setPDesc] = useState("");
   const [baseToken, setBaseToken] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
+  const [account, setAccount] = useState("");
+  const [network, setNetwork] = useState("");
+
   const modalStyle = {
     content: {
       justifyContent: "center",
       background: "black",
       overflow: "auto",
       top: "30vh",
-      left: "38vw",
-      right: "38vw",
+      left: "35vw",
+      right: "35vw",
       bottom: "30vh",
       WebkitOverflowScrolling: "touch",
       borderRadius: "14px",
@@ -32,26 +38,48 @@ export default function CreateProjectPage() {
   };
 
   // const USDTContract = new ethers.Contract("0xdAC17F958D2ee523a2206206994597C13D831ec7", ValutFactory_ABI, signer)
+  useEffect( () => {
+    const getAccount = async() => {
+      let accounts;
+      if(window.ethereum){
+        try {
+            accounts = await window.ethereum.request({
+                method: "eth_requestAccounts",
+            });
+            setAccount(accounts[0]);
+        } catch (error) {
+            console.log(error)
+        }
+      } else{ 
+        console.log("errorororo");
+        alert("need to sign in"); 
+      }
+    }
+    getAccount();
+  })
+  useEffect(() => {
 
+  }, [loading])
+  
   const handleComfirm = async () => {
     const now = new Date();
     const endTimestamp = Math.floor(now.getTime() / 1000);
-    let accounts;
-
-    if(window.ethereum){
-      try {
-          accounts = await window.ethereum.request({
-              method: "eth_requestAccounts",
+    const parameter = PARAMS[network];
+    const networkId = CHAINIDS_DEC[network];
+    const VaultFacotryContractAddress = CONTRACT_ADDRESS[network].vaultFactory;
+    const tokenAddress = BASETOKEN[network];
+    console.log(VaultFacotryContractAddress);
+    console.log(networkId);
+    if (window.ethereum) {
+          await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: "0x" + networkId.toString(16) }]
           });
-      } catch (error) {
-          console.log(error)
-      }
-    } else{ 
-      console.log("errorororo");
-      alert("need to sign in");
-      
+    }else{
+      alert("install metamask");
+      setModalIsOpen(false);
+      return;
     }
-    console.log("asdf");
 
     // const provider = new ethers.getDefaultProvider('https://rpc.chiadochain.net');
     // const provider = new ethers.getDefaultProvider('https://aurora-testnet.rpc.thirdweb.com');
@@ -60,25 +88,24 @@ export default function CreateProjectPage() {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
-    console.log(signer);
-    const VaultFactory_Contract = await new ethers.Contract("0x7680cd3f1b9b74dfdc4fb4b973290c7a26a0fbb3", ValutFactory_ABI, signer)
+    const VaultFactory_Contract = await new ethers.Contract(VaultFacotryContractAddress, ValutFactory_ABI, signer)
     const a = await VaultFactory_Contract.raiseFund(
-      accounts[0],
+      account,
       pName,
       tokenSymbol,
-      BASETOKEN.gnosis_USDC,
-      BASETOKEN.gnosis_USDC,
+      tokenAddress,
+      tokenAddress,
       endTimestamp + 31536000
     );
-  //   function raiseFund(
-  //     address _owner,
-  //     string memory _tokenName, 
-  //     string memory _symbol, 
-  //     address _baseToken,
-  //     address _rewardToken, 
-  //     uint256 _fundingEnd
-  // ) external returns(address) 
-    // console.log(accounts);
+    await a.wait();
+
+    console.log(a);
+    setLoading(true);
+
+    setModalIsOpen(false);
+    setLoading(false);
+    alert("success");
+
   }
   
   return (
@@ -136,6 +163,14 @@ export default function CreateProjectPage() {
                     <input type="text" class="form-control" id="tokenSymbol" onChange={e => setTokenSymbol(e.target.value)} aria-describedby="token symbol"/>
                   </div>
                 </div>
+                <div class="mt-3 col">
+                  <label for="network" class="form-label">Network</label>
+                    <select class="form-select" aria-label="fundingToken" onChange={(e) => setNetwork(e.target.value)}> 
+                      <option selected>Select Network</option>
+                      <option value="aurora_testnet">Aurora testnet</option>
+                      <option value="gnosis_testnet">Gnosis testnet</option>
+                    </select>
+                  </div>
               </div>
               
               <div class="col"></div>
@@ -147,7 +182,7 @@ export default function CreateProjectPage() {
           <Modal  ariaHideApp={false} style={modalStyle} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
             <div class="text-white">
               <div class="">
-                Project Owner : 0x
+                Project Owner : {account}
               </div>
               <div class="">
                 Token Name : {pName}
@@ -156,14 +191,16 @@ export default function CreateProjectPage() {
                 Token Symbol : {tokenSymbol}
               </div>
               <div>
-                Funding Token : {baseToken}
+                Funding Token : {BASETOKEN.gnosis_USDC}
               </div>
               <div>
-                Reward Token : {baseToken}
+                Reward Token : {BASETOKEN.gnosis_USDC}
               </div>
               <button type="button" class="btn btn-primary mt-4 px-4" onClick={handleComfirm}>comfirm</button>
             </div>
           </Modal>
+          
+
           <Footer></Footer>
       </div>
   );

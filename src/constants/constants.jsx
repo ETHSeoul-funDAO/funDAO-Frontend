@@ -1,9 +1,8 @@
 
 export const CHAINIDS_DEC = {
     polygon: 137,
-    gnosisTestnet_Chiado: 10200,
-    auroraTestent: 1313161555,
-
+    gnosis_testnet: 10200,
+    aurora_testnet: 1313161555,
 }
 export const PARAMS = {
     polygon: [{
@@ -12,21 +11,32 @@ export const PARAMS = {
         nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
         rpcUrls: ['https://polygon-rpc.com/']
     }],
-    gnosisTestnet_Chiado: [{
+    gnosis_testent: [{
         chainName: 'gnosis Chiado testnet',
-        chainId: "0x" + CHAINIDS_DEC.gnosisTestnet_Chiado.toString(16),
+        chainId: "0x" + CHAINIDS_DEC.gnosis_testnet.toString(16),
         nativeCurrency: { name: 'XDAI', decimals: 18, symbol: 'XDAI' },
         rpcUrls: ['https://rpc.chiadochain.net']
     }],
-    auroraTestent: [{
+    aurora_testent: [{
         chainName: 'Aurora Testent',
-        chainId: "0x" + CHAINIDS_DEC.auroraTestent.toString(16),
+        chainId: "0x" + CHAINIDS_DEC.aurora_testnet.toString(16),
         nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
         rpcUrls: ['https://aurora-testnet.rpc.thirdweb.com']
     }]
 }
 
 export const BASETOKEN = {
-    gnosis_USDT: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
-    gnosis_USDC: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
+    gnosis_testnet: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
+    aurora_testnet: "0x",
+}
+
+export const CONTRACT_ADDRESS = {
+    gnosis_testnet: {
+        vaultFactory: "0x7680cd3f1b9b74dfdc4fb4b973290c7a26a0fbb3",
+        vault: "0x"
+    },
+    aurora_testnet: {
+        vaultFactory: "0x",
+        vault: "0x"
+    }
 }

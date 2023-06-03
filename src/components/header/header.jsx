@@ -17,7 +17,6 @@ const Header = () => {
     const handleNetworkSwitch = async (networkName, displayName) => {
         const parameter = PARAMS[networkName];
         const networkId = CHAINIDS_DEC[networkName];
-        
 
         if (window.ethereum) {
             try {
@@ -27,6 +26,7 @@ const Header = () => {
                 });
                 setDisplayNetwork(displayName);
             } catch (error) {
+
                 if (error.code === 4902) {
                     await window.ethereum.request({
                         method: 'wallet_addEthereumChain',
@@ -78,9 +78,9 @@ const Header = () => {
                                     }
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li onClick={() => handleNetworkSwitch("auroraTestent", "Aurora Testnet")}><a class="dropdown-item">Aurora Testnet</a></li>
+                                        <li onClick={() => handleNetworkSwitch("aurora_testent", "Aurora Testnet")}><a class="dropdown-item">Aurora Testnet</a></li>
                                         <li onClick={() => handleNetworkSwitch("polygon", "Polygon Mainnet")}><a class="dropdown-item">Polygon Mainnet</a></li>
-                                        <li onClick={() => handleNetworkSwitch("gnosisTestnet_Chiado", "Gnosis Chiado testnet")}><a class="dropdown-item">Gnosis Chiado testnet</a></li>
+                                        <li onClick={() => handleNetworkSwitch("gnosis_testnet", "Gnosis Chiado testnet")}><a class="dropdown-item">Gnosis Chiado testnet</a></li>
                                     </ul>
                                     <button class={circleStyle}>{displayAccount}</button>
                                 </div>
