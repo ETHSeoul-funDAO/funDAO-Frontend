@@ -14,10 +14,14 @@ const Header = () => {
 
     const circleStyle = "d-inline-flex bg-dark border border-white-50 text-white-50 rounded-2 mx-2 py-1";
 
+    useEffect(() => {
+        connectToMetamask();
+    });
+
     const handleNetworkSwitch = async (networkName, displayName) => {
         const parameter = PARAMS[networkName];
         const networkId = CHAINIDS_DEC[networkName];
-
+        
         if (window.ethereum) {
             try {
                 await window.ethereum.request({
