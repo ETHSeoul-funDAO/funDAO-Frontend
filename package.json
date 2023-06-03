@@ -11,6 +11,7 @@
     "@web3-react/injected-connector": "^6.0.7",
     "bootstrap": "^5.3.0",
     "ethers": "^6.4.1",
+    "mdb-react-ui-kit": "^6.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-countdown": "^2.3.5",
