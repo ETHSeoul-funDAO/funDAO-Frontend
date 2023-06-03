@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import MyPage from "../../pages/myPage";
 import MainPage from "../../pages/mainPage";
 import ExplorePage from "../../pages/explorePage";
+import Detailpage from "../../pages/detailPage";
 import CreateProjectPage from "../../pages/createProjectPage";
 
 export default function Router() {
@@ -25,6 +26,7 @@ export default function Router() {
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/explore' element={<ExplorePage />} />
         <Route path='/createProject' element={<CreateProjectPage />} />
+        <Route path='/detail/:id' element={<Detailpage />} />
       </Routes>
     </BrowserRouter>
   );
