@@ -16,7 +16,11 @@ const Header = () => {
 
     useEffect(() => {
         connectToMetamask();
-    });
+    },[]);
+
+    useEffect(() => {
+
+    }, [displayNetwork]);
 
     const handleNetworkSwitch = async (networkName, displayName) => {
         const parameter = PARAMS[networkName];
@@ -82,7 +86,7 @@ const Header = () => {
                                     }
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li onClick={() => handleNetworkSwitch("aurora_testent", "Aurora Testnet")}><a class="dropdown-item">Aurora Testnet</a></li>
+                                        <li onClick={() => handleNetworkSwitch("aurora_testnet", "Aurora Testnet")}><a class="dropdown-item">Aurora Testnet</a></li>
                                         <li onClick={() => handleNetworkSwitch("polygon", "Polygon Mainnet")}><a class="dropdown-item">Polygon Mainnet</a></li>
                                         <li onClick={() => handleNetworkSwitch("gnosis_testnet", "Gnosis Chiado testnet")}><a class="dropdown-item">Gnosis Chiado testnet</a></li>
                                     </ul>
