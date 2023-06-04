@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import { LangEn, ethers } from "ethers";
+import { ethers } from "ethers";
 import Modal from 'react-modal';
+import { useNavigate } from "react-router-dom";
 
 import { BASETOKEN, CHAINIDS_DEC, PARAMS, CONTRACT_ADDRESS} from "../constants/constants";
 import ValutFactory_ABI from '../abis/vaultFactory_abi.json';
@@ -11,6 +12,8 @@ import Footer from "../components/footer/footer";
 import Loading from "../components/spinner/loading";
 
 export default function CreateProjectPage() {
+  const navigate = useNavigate();
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false)
 
@@ -87,8 +90,15 @@ export default function CreateProjectPage() {
     // const provider = new ethers.JsonRpcProvider('https://rpc.chiado.gnosis.gateway.fm');
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
+    console.log(      account,
+      pName,
+      tokenSymbol,
+      tokenAddress,
+      tokenAddress,
+      endTimestamp + 31536000
+)
 
-    const VaultFactory_Contract = await new ethers.Contract(VaultFacotryContractAddress, ValutFactory_ABI, signer)
+const VaultFactory_Contract = await new ethers.Contract(VaultFacotryContractAddress, ValutFactory_ABI, signer)
     const a = await VaultFactory_Contract.raiseFund(
       account,
       pName,
@@ -104,8 +114,9 @@ export default function CreateProjectPage() {
 
     setModalIsOpen(false);
     setLoading(false);
+    
     alert("success");
-
+    navigate("/createProject")
   }
   
   return (
@@ -191,10 +202,10 @@ export default function CreateProjectPage() {
                 Token Symbol : {tokenSymbol}
               </div>
               <div>
-                Funding Token : {BASETOKEN.gnosis_USDC}
+                Funding Token : {BASETOKEN.gnosis_testnet}
               </div>
               <div>
-                Reward Token : {BASETOKEN.gnosis_USDC}
+                Reward Token : {BASETOKEN.gnosis_testnet}
               </div>
               <button type="button" class="btn btn-primary mt-4 px-4" onClick={handleComfirm}>comfirm</button>
             </div>

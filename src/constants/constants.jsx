@@ -21,13 +21,13 @@ export const PARAMS = {
         chainName: 'Aurora Testent',
         chainId: "0x" + CHAINIDS_DEC.aurora_testnet.toString(16),
         nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-        rpcUrls: ['https://aurora-testnet.rpc.thirdweb.com']
+        rpcUrls: ['https://testnet.aurora.dev/']
     }]
 }
 
 export const BASETOKEN = {
     gnosis_testnet: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
-    aurora_testnet: "0x",
+    aurora_testnet: "0x6914899ba042a8c46e898a17993fbe4b9441183d",
 }
 
 export const CONTRACT_ADDRESS = {
@@ -36,7 +36,7 @@ export const CONTRACT_ADDRESS = {
         vault: "0x"
     },
     aurora_testnet: {
-        vaultFactory: "0x",
+        vaultFactory: "0xd9eab0f4b47fb0cc317a9f66dedec3b39a41bc30",
         vault: "0x"
     }
 }
